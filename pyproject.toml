@@ -1,0 +1,13 @@
+[project]
+name = "anxiety-component2-backend"
+version = "1.0.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi",
+    "python-dotenv",
+    "supabase",
+    "pandas",
+    "numpy",
+    "scikit-learn==1.6.1",
+    "joblib",
+]
