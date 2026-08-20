@@ -1,7 +1,25 @@
-from fastapi import FastAPI
-from app import app as component2_app
+from typing import Optional
 
-# Vercel looks for a top-level variable named "app" in api/index.py.
-# Mount the already-tested Component 2 API under /api.
-app = FastAPI(title="Component 2 Vercel Gateway")
-app.mount("/api", component2_app)
+from fastapi import FastAPI, Query
+
+from app import health as component2_health
+from app import behavioral as component2_behavioral
+
+
+app = FastAPI(title="Component 2 API")
+
+
+@app.get("/api/health")
+def health():
+    return component2_health()
+
+
+@app.get("/api/behavioral/{participant_id}")
+def behavioral(
+    participant_id: str,
+    window_end_date: Optional[str] = Query(default=None),
+):
+    return component2_behavioral(
+        participant_id=participant_id,
+        window_end_date=window_end_date,
+    )
